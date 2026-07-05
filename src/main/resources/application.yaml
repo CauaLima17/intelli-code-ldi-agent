@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: intelli_code_ldi_agent
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/intellic_db
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        default-schema: public
+        format-sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl: update
+  ai:
+    openai:
+      base-url: ${AI_BASE_URL}
+      api-key: ${AI_BASE_API_KEY}
+      chat:
+        options:
+          model: google/gemma-3-4b
+          temperature: 0.4
+      embedding:
+        options:
+          model: text-embedding-qwen3-embedding-0.6b
+
+    vector:
+      pgvector:
+        initialize-schema: true
+        index-type: HNSW
+        dimension: 1024
+        distance-type: COSINE_DISTANCE
+        table-name: vector_store
+
+logging:
+  level:
+    org.springframework.ai: DEBUG
+    org.springframework.jdbc: DEBUG
