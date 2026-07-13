@@ -35,18 +35,18 @@ public class RetriveService {
         String information = retrieveInformation(chatRequest.getQuestion());
 
         SystemPromptTemplate template = new SystemPromptTemplate(promptTemplate);
-        Prompt prompt = new Prompt(template.createMessage(Map.of("information", information, "question", new UserMessage(chatRequest.getQuestion()))));
+        Prompt prompt = new Prompt(template.createMessage(Map.of("information", information, "question", chatRequest.getQuestion())));
 
         return chatClient.prompt(prompt).call().content();
     }
 
     private String retrieveInformation(String question) {
-        List<Document> similarContents = vectorStore.similaritySearch(
-                SearchRequest.builder()
+        List<Document> similarContents = vectorStore
+                .similaritySearch(SearchRequest.builder()
                         .query(question)
                         .topK(4)
                         .similarityThreshold(0.70)
-                .build()
+                        .build()
         );
 
         return similarContents.stream()

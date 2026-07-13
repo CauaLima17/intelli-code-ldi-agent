@@ -4,8 +4,8 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5433/intellic_db
-    username: postgres
-    password: postgres
+    username: ${DB_USER:postgres}
+    password: ${DB_PWD:postgres}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -17,26 +17,28 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         ddl: update
   ai:
-    openai:
-      base-url: ${AI_BASE_URL}
-      api-key: ${AI_BASE_API_KEY}
-      chat:
-        options:
-          model: google/gemma-3-4b
-          temperature: 0.4
-      embedding:
-        options:
-          model: text-embedding-qwen3-embedding-0.6b
+    google:
+      genai:
+        api-key: ${GOOGLE_API_KEY:}
+        chat:
+          options:
+            model: gemini-2.5-flash
+            temperature: 1.0
+        embedding:
+          api-key: ${GOOGLE_API_KEY:}
+          text:
+            options:
+              model: gemini-embedding-001
 
-    vector:
+    vectorstore:
       pgvector:
         initialize-schema: true
         index-type: HNSW
-        dimension: 1024
+        dimension: 1536
         distance-type: COSINE_DISTANCE
         table-name: vector_store
+        schema-name: public
 
 logging:
   level:
-    org.springframework.ai: DEBUG
-    org.springframework.jdbc: DEBUG
+    org.springframework.ai.openai: DEBUG
