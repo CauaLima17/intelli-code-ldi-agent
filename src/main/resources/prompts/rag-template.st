@@ -5,4 +5,3 @@ Contexto:
 {information}
 
 Pergunta do usuário:
-{question}

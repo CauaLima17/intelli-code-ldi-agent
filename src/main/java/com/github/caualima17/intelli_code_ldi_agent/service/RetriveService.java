@@ -35,7 +35,12 @@ public class RetriveService {
         String information = retrieveInformation(chatRequest.getQuestion());
 
         SystemPromptTemplate template = new SystemPromptTemplate(promptTemplate);
-        Prompt prompt = new Prompt(template.createMessage(Map.of("information", information, "question", chatRequest.getQuestion())));
+        Prompt prompt = new Prompt(
+                template.createMessage(Map.of(
+                        "information", information
+                )),
+                new UserMessage(chatRequest.getQuestion())
+        );
 
         return chatClient.prompt(prompt).call().content();
     }
