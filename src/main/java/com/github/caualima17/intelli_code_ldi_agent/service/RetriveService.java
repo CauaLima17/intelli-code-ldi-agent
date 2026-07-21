@@ -49,8 +49,8 @@ public class RetriveService {
         List<Document> similarContents = vectorStore
                 .similaritySearch(SearchRequest.builder()
                         .query(question)
-                        .topK(4)
-                        .similarityThreshold(0.70)
+                        .topK(10)
+                        .similarityThreshold(0.65)
                         .build()
         );
 
