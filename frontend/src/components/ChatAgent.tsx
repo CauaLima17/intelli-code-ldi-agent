@@ -1,13 +1,15 @@
 import {useRef, useState} from "react";
-import {Bot, Send, Trash2} from "lucide-react";
+import {Bot, Copy, Send, Trash2} from "lucide-react";
 import {Button} from "./ui/button.tsx";
 import ChatAgentService from "../service/ChatAgentService.ts";
+import {HighlightJava} from "./HighlightJava.tsx";
 
 type Message = {
     id: number;
     role: "assistant" | "user";
     time: string;
     text?: string;
+    code?: string
 };
 
 const INITIAL: Message[] = [
@@ -32,11 +34,12 @@ const ChatAgent = () => {
         const userQuestion = draft.trim();
         if (!userQuestion) return;
 
+        console.log(draft)
         const { data } = await ChatAgentService.callAgent({ conversationID: 1, question: draft })
         setMessages((prev)=> [
             ...prev,
             { id: 1, text: draft, role: "user", time: now() },
-            { id: 1, text: data.anwser, role: "assistant", time: data.time }
+            { id: 1, text: data.anwser, role: "assistant", time: data.time, code: data.code }
         ]);
 
         setDraft("");
@@ -67,9 +70,9 @@ const ChatAgent = () => {
             </div>
 
             <div ref={listRef} className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto px-5 pb-4">
-                {messages.map((m) => (
+                {messages.map((m, index) => (
                     <div
-                        key={m.id}
+                        key={index}
                         className={
                             m.role === "user"
                                 ? "ml-auto max-w-[85%] rounded-2xl rounded-br-md bg-accent px-4 py-3 text-accent-foreground"
@@ -77,15 +80,15 @@ const ChatAgent = () => {
                         }
                     >
                         {m.text && <p className="mt-1 text-[15px] leading-relaxed">{m.text}</p>}
-                        {/*{m.code && (*/}
-                        {/*    <div*/}
-                        {/*        className="relative mt-3 overflow-x-auto rounded-xl border border-border bg-code-bg p-4">*/}
-                        {/*        <Copy className="absolute top-3 right-3 size-4 text-muted-foreground"/>*/}
-                        {/*        <pre className="font-mono text-[12px] leading-5">*/}
-                        {/*            /!*<code>{highlightJava(m.code)}</code>*!/*/}
-                        {/*        </pre>*/}
-                        {/*    </div>*/}
-                        {/*)}div*/}
+                        {m.code && (
+                            <div
+                                className="relative mt-3 overflow-x-auto rounded-xl border border-border bg-code-bg p-4">
+                                <Copy className="absolute top-3 right-3 size-4 text-muted-foreground"/>
+                                <pre className="font-mono text-[12px] leading-5">
+                                    <code>{HighlightJava(m.code)}</code>
+                                </pre>
+                            </div>
+                        )}
                         <p
                             className={
                                 m.role === "user"

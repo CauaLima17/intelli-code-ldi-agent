@@ -6,5 +6,6 @@ export type CallAgentRequestType = {
 export type CallAgentResponseType = {
     conversationID: number,
     anwser: string,
+    code: string,
     time: string
 }
