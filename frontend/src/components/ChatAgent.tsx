@@ -4,6 +4,7 @@ import {Button} from "./ui/button.tsx";
 import ChatAgentService from "../service/ChatAgentService.ts";
 import {HighlightJava} from "./HighlightJava.tsx";
 import { Rings } from 'react-loader-spinner'
+import {toast} from "sonner";
 
 type Message = {
     id: number;
@@ -98,7 +99,10 @@ const ChatAgent = () => {
                         {m.code && (
                             <div
                                 className="relative mt-3 overflow-x-auto rounded-xl border border-border bg-code-bg p-4">
-                                <Copy className="absolute top-3 right-3 size-4 text-muted-foreground"/>
+                                <Copy className="cursor-pointer absolute top-3 right-3 size-4 text-muted-foreground" onClick={async () => {
+                                    await navigator.clipboard.writeText(m.code ?? "");
+                                    toast.info("Código copiado!");
+                                }}/>
                                 <pre className="font-mono text-[12px] leading-5">
                                     <code>{HighlightJava(m.code)}</code>
                                 </pre>
