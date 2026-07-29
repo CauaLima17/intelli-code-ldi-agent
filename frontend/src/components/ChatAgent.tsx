@@ -3,6 +3,7 @@ import {Bot, Copy, Send, Trash2} from "lucide-react";
 import {Button} from "./ui/button.tsx";
 import ChatAgentService from "../service/ChatAgentService.ts";
 import {HighlightJava} from "./HighlightJava.tsx";
+import { Rings } from 'react-loader-spinner'
 
 type Message = {
     id: number;
@@ -27,25 +28,39 @@ function now() {
 
 const ChatAgent = () => {
     const [messages, setMessages] = useState<Message[]>(INITIAL);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [draft, setDraft] = useState("");
     const listRef = useRef<HTMLDivElement>(null);
 
     const send = async  () => {
-        const userQuestion = draft.trim();
-        if (!userQuestion) return;
+        try {
+            setIsLoading(true);
+            const userQuestion = draft.trim();
+            if (!userQuestion) return;
 
-        console.log(draft)
-        const { data } = await ChatAgentService.callAgent({ conversationID: 1, question: draft })
-        setMessages((prev)=> [
-            ...prev,
-            { id: 1, text: draft, role: "user", time: now() },
-            { id: 1, text: data.anwser, role: "assistant", time: data.time, code: data.code }
-        ]);
+            setMessages((prev)=> [
+                ...prev,
+                { id: 1, text: draft, role: "user", time: now() },
+            ]);
+            requestAnimationFrame(() => {
+                listRef.current?.scrollTo({top: listRef.current.scrollHeight, behavior: "smooth"});
+            });
 
-        setDraft("");
-        requestAnimationFrame(() => {
-            listRef.current?.scrollTo({top: listRef.current.scrollHeight, behavior: "smooth"});
-        });
+            const { data } = await ChatAgentService.callAgent({ conversationID: 1, question: draft })
+            setMessages((prev)=> [
+                ...prev,
+                { id: 1, text: data.anwser, role: "assistant", time: data.time, code: data.code }
+            ]);
+
+            setDraft("");
+            requestAnimationFrame(() => {
+                listRef.current?.scrollTo({top: listRef.current.scrollHeight, behavior: "smooth"});
+            });
+        } catch (err) {
+            console.error("Ocorreu um erro ao contatar o agente: " + err);
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (
@@ -100,6 +115,13 @@ const ChatAgent = () => {
                         </p>
                     </div>
                 ))}
+
+                { isLoading && (
+                    <span className="flex gap-2 items-center text-neutral-400">
+                        <Rings width="40" color="#D4D4D4"/>
+                        <p className="text-sm">Pensando . . .</p>
+                    </span>
+                )}
             </div>
 
             <div className="border-t border-border p-4">
