@@ -1,4 +1,4 @@
-package com.github.caualima17.intelli_code_ldi_agent.dto;
+package com.github.caualima17.dto;
 
 import lombok.Data;
 

@@ -1,6 +1,9 @@
 spring:
   application:
     name: intelli_code_ldi_agent
+  docker:
+    compose:
+      file: backend/docker-compose.yml
 
   datasource:
     url: jdbc:postgresql://localhost:5433/intellic_db
@@ -22,7 +25,7 @@ spring:
         api-key: ${GOOGLE_API_KEY:}
         chat:
           options:
-            model: gemini-3.5-flash
+            model: gemini-3.5-flash-lite
             temperature: 1.0
         embedding:
           api-key: ${GOOGLE_API_KEY:}

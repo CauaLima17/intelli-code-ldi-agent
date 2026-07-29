@@ -1,6 +1,6 @@
-package com.github.caualima17.intelli_code_ldi_agent.service;
+package com.github.caualima17.service;
 
-import com.github.caualima17.intelli_code_ldi_agent.dto.ChatRequestDTO;
+import com.github.caualima17.dto.ChatRequestDTO;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;

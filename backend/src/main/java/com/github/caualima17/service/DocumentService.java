@@ -1,4 +1,4 @@
-package com.github.caualima17.intelli_code_ldi_agent.service;
+package com.github.caualima17.service;
 
 import org.springframework.ai.document.Document;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -19,7 +19,7 @@ import java.util.Map;
 @Service
 public class DocumentService {
     private final VectorStore vectorStore;
-    @Value("classpath:/docs/*.md")
+    @Value("classpath:*docs/*.md")
     private final Resource[] files;
 
     @Autowired

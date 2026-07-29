@@ -1,7 +1,7 @@
-package com.github.caualima17.intelli_code_ldi_agent.controller;
+package com.github.caualima17.controller;
 
-import com.github.caualima17.intelli_code_ldi_agent.dto.ChatRequestDTO;
-import com.github.caualima17.intelli_code_ldi_agent.service.RetriveService;
+import com.github.caualima17.dto.ChatRequestDTO;
+import com.github.caualima17.service.RetriveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
