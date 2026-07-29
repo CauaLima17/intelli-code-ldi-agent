@@ -1,6 +1,7 @@
 package com.github.caualima17.service;
 
 import com.github.caualima17.dto.ChatRequestDTO;
+import com.github.caualima17.dto.ChatResponseDTO;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -12,8 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,7 +36,7 @@ public class RetriveService {
         this.chatClient = chatClient.build();
     }
 
-    public String callAgent(ChatRequestDTO chatRequest) {
+    public ChatResponseDTO callAgent(ChatRequestDTO chatRequest) {
         String information = retrieveInformation(chatRequest.getQuestion());
 
         SystemPromptTemplate template = new SystemPromptTemplate(promptTemplate);
@@ -42,7 +47,10 @@ public class RetriveService {
                 new UserMessage(chatRequest.getQuestion())
         );
 
-        return chatClient.prompt(prompt).call().content();
+        ChatResponseDTO response = chatClient.prompt(prompt).call().entity(ChatResponseDTO.class);
+        response.setTime(LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm")));
+
+        return response;
     }
 
     private String retrieveInformation(String question) {

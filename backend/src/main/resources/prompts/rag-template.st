@@ -6,10 +6,7 @@ REGRAS PARA GERAR O CÓDIGO:
 - O código será compilado dinamicamente por Javassist.
 - Não utilize Generics.
 - Não utilize operador diamond (<>).
-- Sempre que gerar um código, envolva-o por:
-```java
-código
-```
+- Respeite o modelo de resposta proposto
 
 Contexto:
 {information}

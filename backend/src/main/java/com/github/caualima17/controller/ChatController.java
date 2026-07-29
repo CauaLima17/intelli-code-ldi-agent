@@ -1,6 +1,7 @@
 package com.github.caualima17.controller;
 
 import com.github.caualima17.dto.ChatRequestDTO;
+import com.github.caualima17.dto.ChatResponseDTO;
 import com.github.caualima17.service.RetriveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class ChatController {
     }
 
     @PostMapping("/code-help")
-    public ResponseEntity<String> chatCodeHelp(@RequestBody ChatRequestDTO data) {
+    public ResponseEntity<ChatResponseDTO> chatCodeHelp(@RequestBody ChatRequestDTO data) {
         return ResponseEntity.ok(retriveService.callAgent(data));
     }
 }
