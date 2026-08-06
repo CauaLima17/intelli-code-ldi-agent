@@ -4,8 +4,10 @@ Semelhante a um ORM, o sistema do Logique Data Integrator (LDI) disponibiliza re
 
 #### Inserção de valores em uma tabela no banco de dados
 
+Este método realiza a inserção de um registro em uma tabela do banco de dados, associando os valores informados às respectivas colunas especificadas.
+
 ```java
-public static void inserir(String alias, String tabela, String[] colunas, Object[] valores)
+public static void inserir(String alias, String tabela, String[] colunas, Object[] valores);
 ```
 
 **Parâmetros:**
@@ -19,27 +21,26 @@ public static void inserir(String alias, String tabela, String[] colunas, Obj
 
 !!! example "Exemplo de uso"
 
-    ```java
-
+```java
     String[] colunas = new String[]{"coluna1", "coluna2", "coluna3"};
-
+    
     Object[] valores = new Object[]{"ABC", Integer.valueOf(1234), Integer.valueOf(333)};
-
-    String alias = "nomeDoBanco"; String tabela = "nomeDaTabela";
-
+    
+    String alias = "nomeDoBanco";
+    String tabela = "nomeDaTabela";
+    
     BD.inserir(alias, tabela, colunas, valores);
-
-    ```
+```
 
 <br>
 
 #### Inserção de um objeto em uma tabela no banco de dados
 
 ```java
-public static void inserir(String alias, String tabela, String coluna, Object valor)
+public static void inserir(String alias, String tabela, String coluna, Object valor);
 ```
 
-Insere um valor na tabela
+Este método realiza a inserção de um único valor em uma coluna específica de uma tabela do banco de dados.
 
 | Parâmetro | Tipo   | Descrição                              |
 | --------- | ------ | -------------------------------------- |
@@ -50,24 +51,24 @@ Insere um valor na tabela
 
 !!! example "Exemplo de uso"
 
-    ```java
+```java
+String coluna = "coluna1";
+String valor = "teste";
+String alias = "nomeDoBanco";
+String tabela = "nomeDaTabela";
 
-    String coluna = "coluna1";
-    String valor = "teste";
-    String alias = "nomeDoBanco";
-    String tabela = "nomeDaTabela";
-
-    BD.inserir(alias,tabela, coluna, valor);
-
-    ```
+BD.inserir(alias, tabela, coluna, valor);
+```
 
 <br>
 
 #### Inserção de um valor do tipo [int](../sintaxe_java/tipos_dados.md) na tabela do banco de dados.
 
 ```java
-public static void inserir(String alias, String tabela, String coluna, int valor)
+public static void inserir(String alias, String tabela, String coluna, int valor);
 ```
+
+Este método realiza a inserção de um valor numérico inteiro em uma coluna específica de uma tabela do banco de dados. É comumente utilizado para armazenar contadores, identificadores, quantidades, códigos ou valores inteiros provenientes de leituras e cálculos realizados pela aplicação.
 
 | Parâmetro | Tipo   | Descrição                              |
 | --------- | ------ | -------------------------------------- |
@@ -78,24 +79,24 @@ public static void inserir(String alias, String tabela, String coluna, int v
 
 !!! example "Exemplo de uso"
 
-    ```java
-
-    String coluna = "coluna1";
+```java
+    String coluna = "quantidade_produzida";
     int valor = 123;
     String alias = "nomeDoBanco";
-    String tabela = "nomeDaTabela";
-
+    String tabela = "producao";
+    
     BD.inserir(alias, tabela, coluna, valor);
-
-    ```
+```
 
 <br>
 
 #### Inserção de um valor do tipo [long](../sintaxe_java/tipos_dados.md) na tabela do banco de dados.
 
 ```java
-public static void inserir(String alias, String tabela, String coluna, long valor)
+public static void inserir(String alias, String tabela, String coluna, long valor)
 ```
+
+Este método realiza a inserção de um valor numérico inteiro do tipo `long` em uma coluna específica de uma tabela do banco de dados. É geralmente utilizado para armazenar identificadores, timestamps, contadores ou outros valores inteiros que podem ultrapassar o limite suportado pelo tipo `int`.
 
 | Parâmetro | Tipo   | Descrição                              |
 | --------- | ------ | -------------------------------------- |
@@ -106,24 +107,24 @@ public static void inserir(String alias, String tabela, String coluna, long 
 
 !!! example "Exemplo de uso"
 
-    ```java
+```java
+String coluna = "timestamp_leitura";
+long valor = System.currentTimeMillis();
+String alias = "nomeDoBanco";
+String tabela = "nomeDaTabela";
 
-    String coluna = "coluna1";
-    int valor = 123;
-    String alias = "nomeDoBanco";
-    String tabela = "nomeDaTabela";
-
-    BD.inserir(alias, tabela, coluna, valor);
-
-    ```
+BD.inserir(alias, tabela, coluna, valor);
+```
 
 <br>
 
-#### Inserção um valor do tipo [double](../sintaxe_java/tipos_dados.md) na tabela do banco de dados.
+#### Inserção de um valor do tipo [double](../sintaxe_java/tipos_dados.md) na tabela do banco de dados.
 
 ```java
-public static void inserir(String alias, String tabela, String coluna, double valor)
+public static void inserir(String alias, String tabela, String coluna, double valor)
 ```
+
+Este método realiza a inserção de um valor numérico do tipo `double` em uma coluna específica de uma tabela do banco de dados. É comumente utilizado para armazenar medições e valores que exigem casas decimais, como temperatura, pressão, vazão, nível ou consumo.
 
 | Parâmetro | Tipo   | Descrição                              |
 | --------- | ------ | -------------------------------------- |
@@ -134,24 +135,24 @@ public static void inserir(String alias, String tabela, String coluna, double
 
 !!! example "Exemplo de uso"
 
-    ```java
+```java
+String coluna = "temperatura";
+double valor = 28.5d;
+String alias = "nomeDoBanco";
+String tabela = "leituras_sensor";
 
-    String coluna = "coluna1";
-    double valor = 123d;
-    String alias = "nomeDoBanco";
-    String tabela = "nomeDaTabela";
-
-    BD.inserir(alias, tabela, coluna, valor);
-
-    ```
+BD.inserir(alias, tabela, coluna, valor);
+```
 
 <br>
 
-#### Inserção um valor do tipo [float](../sintaxe_java/tipos_dados.md) na tabela do banco de dados.
+#### Inserção de um valor do tipo [float](../sintaxe_java/tipos_dados.md) na tabela do banco de dados.
 
-```java
-public static void inserir(String alias, String tabela, String coluna, float valor)
+```java"
+public static void inserir(String alias, String tabela, String coluna, float valor)
 ```
+
+Este método realiza a inserção de um valor numérico do tipo `float` em uma coluna específica de uma tabela do banco de dados. É frequentemente utilizado para armazenar medições com casas decimais, como temperatura, umidade, nível de reservatórios e outras grandezas obtidas de sensores e equipamentos.
 
 | Parâmetro | Tipo   | Descrição                              |
 | --------- | ------ | -------------------------------------- |
@@ -162,22 +163,24 @@ public static void inserir(String alias, String tabela, String coluna, float�
 
 !!! example "Exemplo de uso"
 
-    ```java
+```java"
+String coluna = "umidade";
+float valor = 65.4f;
+String alias = "nomeDoBanco";
+String tabela = "leituras_sensor";
 
-    String coluna = "coluna1";
-    float valor = 123f;
-    String alias = "nomeDoBanco";
-    String tabela = "nomeDaTabela";
-
-    BD.inserir(alias, tabela, coluna, valor);
-
-    ```
+BD.inserir(alias, tabela, coluna, valor);
+```
 
 <br>
 
-#### Inserção um valor do tipo [char](../sintaxe_java/tipos_dados.md) na tabela do banco de dados.
+#### Inserção de um valor do tipo [char](../sintaxe_java/tipos_dados.md) na tabela do banco de dados.
 
-`public static void inserir(String alias, String tabela, String coluna, char valor)`
+```java
+public static void inserir(String alias, String tabela, String coluna, char valor)
+```
+
+Este método realiza a inserção de um caractere do tipo `char` em uma coluna específica de uma tabela do banco de dados. É normalmente utilizado para armazenar códigos, categorias, classificações ou indicadores representados por um único caractere.
 
 | Parâmetro | Tipo   | Descrição                              |
 | --------- | ------ | -------------------------------------- |
@@ -188,22 +191,24 @@ public static void inserir(String alias, String tabela, String coluna, float�
 
 !!! example "Exemplo de uso"
 
-    ```java
+```java
+String coluna = "status";
+char valor = 'A';
+String alias = "nomeDoBanco";
+String tabela = "equipamentos";
 
-    String coluna = "coluna1";
-    char valor = 'c';
-    String alias = "nomeDoBanco";
-    String tabela = "nomeDaTabela";
-
-    BD.inserir(alias, tabela, coluna, valor);
-
-    ```
+BD.inserir(alias, tabela, coluna, valor);
+```
 
 <br>
 
-#### Inserção um valor do tipo [boolean](../sintaxe_java/tipos_dados.md) na tabela do banco de dados.
+#### Inserção de um valor do tipo [boolean](../sintaxe_java/tipos_dados.md) na tabela do banco de dados.
 
-`public static void inserir(String alias, String tabela, String coluna, boolean valor)`
+```java
+public static void inserir(String alias, String tabela, String coluna, boolean valor);
+```
+
+Este método realiza a inserção de um valor do tipo `boolean` em uma coluna específica de uma tabela do banco de dados. É geralmente utilizado para armazenar estados lógicos, como ligado/desligado, ativo/inativo, habilitado/desabilitado ou sucesso/falha.
 
 | Parâmetro | Tipo    | Descrição                              |
 | --------- | ------- | -------------------------------------- |
@@ -214,24 +219,24 @@ public static void inserir(String alias, String tabela, String coluna, float�
 
 !!! example "Exemplo de uso"
 
-    ```java
+```java
+String coluna = "equipamento_ativo";
+boolean valor = false;
+String alias = "nomeDoBanco";
+String tabela = "status_equipamentos";
 
-    String coluna = "coluna1";
-    boolean valor = false;
-    String alias = "nomeDoBanco";
-    String tabela = "nomeDaTabela";
-
-    BD.inserir(alias, tabela, coluna, valor);
-
-    ```
+BD.inserir(alias, tabela, coluna, valor);
+```
 
 <br>
 
 #### Atualiza um valor em uma tabela do banco de dados.
 
 ```java
-public static void atualizar(String alias, String tabela, String coluna, Object valor, String where)
+public static void atualizar(String alias, String tabela, String coluna, Object valor, String where);
 ```
+
+Este método atualiza o valor de uma coluna em registros existentes de uma tabela do banco de dados. A atualização é realizada apenas nas linhas que atendem à condição especificada no parâmetro `where`, permitindo alterar informações como status, configurações, valores de sensores ou dados cadastrais.
 
 | Parâmetro | Tipo   | Descrição                                        |
 | --------- | ------ | ------------------------------------------------ |
@@ -243,12 +248,11 @@ public static void atualizar(String alias, String tabela, String coluna, Obje
 
 !!! example "Exemplo de uso"
 
-    ```java
+```java
+String valor = "ATIVO";
 
-    String valor = "ABC";
-    BD.atualizar("nomeDoBanco", "nomeTabela", "coluna1", valor, "coluna2 = 1234");
-
-    ```
+BD.atualizar("nomeDoBanco", "equipamentos", "status", valor, "id = 1234");
+```
 
 <br>
 
@@ -554,8 +558,10 @@ public static int executarSQLInsertOuUpdate(String alias, String query)
 #### Executa uma instrução SQL de consulta.
 
 ```java
-public static Object[][] executarSQLSelect(String alias, String consulta);
+public static Object[][] executarSQLSelect(String alias, String consulta);
 ```
+
+Este método executa uma consulta SQL do tipo `SELECT` no banco de dados e retorna os registros encontrados. O resultado é disponibilizado em uma matriz bidimensional, onde cada linha representa um registro retornado pela consulta e cada coluna representa um campo desse registro.
 
 | Parâmetro | Tipo   | Descrição                      |
 | --------- | ------ | ------------------------------ |
@@ -564,21 +570,21 @@ public static Object[][] executarSQLSelect(String alias, String consulta);
 
 !!! example "Exemplo de uso"
 
-    ```java
+```java
+String alias = "nomeDoBanco";
+Object[][] resultado = BD.executarSQLSelect(alias, "SELECT * FROM TABELA1");
 
-    String alias = "nomeDoBanco";
-    Object[][] resultado = BD.executarSQLSelect(alias, "SELECT * FROM TABELA1");
+for (int i = 0; i < resultado.length; i++) {
+    Object[] linha = resultado[i];
 
-    for (int i = 0; i < resultado.length; i++) {
-        Object[] linha = resultado[i];
-
-        for (int j = 0; j < linha.length; j++) {
-              Object coluna = linha[j];
-        }
+    for (int j = 0; j < linha.length; j++) {
+        Object coluna = linha[j];
     }
+}
+```
 
-    ```
-    **Retorna:** Uma matriz linha x coluna com o resultado da consulta
+**Retorna:** Uma matriz linha x coluna com o resultado da consulta.
+
 
 <br>
 
